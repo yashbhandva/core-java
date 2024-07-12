@@ -6,7 +6,7 @@ class temp{
     public String toString() {
         return "temp{}";
     }
-    public void finalized(){
+    public void Finalize(){
         System.out.println("finalized method called");
     }
 }
