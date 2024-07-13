@@ -23,7 +23,7 @@ public class HashTable {
         h.put(new add(15),"D");
         h.put(new add(23),"E");
         h.put(new add(16),"F");
-        
+
         System.out.println(h);
     }
 }
