@@ -10,7 +10,7 @@ public class DropTable {
         String url = "jdbc:mysql://localhost:3306/college";
         String password = "root";
         String userName = "root";
-        String Query = "drop table staff";
+        String Query = "drop table parsons";
 
         Connection con = null;
         Statement st = null;
