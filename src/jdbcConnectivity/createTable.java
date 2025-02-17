@@ -7,7 +7,7 @@ public class createTable {
         Connection con = null;
         Statement st = null;
         int rs;
-        String  Query = "create table staff(id int(15)primary key,name varchar(10),subject varchar(10))";
+        String  Query = "create table student(id int(15),name varchar(20))";
 
         String url = "jdbc:mysql://localhost:3306/college";
         String name = "root";
