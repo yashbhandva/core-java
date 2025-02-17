@@ -5,58 +5,42 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class InsertDataSwing extends JFrame {
-    private JTextField nameField, cityField, emailField, passwordField;
-    private JButton insertButton;
+public class InsertDataSwing {
 
-    // Database credentials
     private static final String URL = "jdbc:mysql://localhost:3306/demo";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
-    public InsertDataSwing() {
-        setTitle("Insert User Data");
-        setSize(350, 250);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(5, 2, 5, 5));
+    public void createGUI() {
+        JFrame frame = new JFrame("Insert User Data");
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new GridLayout(5, 2));
 
-        // Create input fields
-        add(new JLabel("Name:"));
-        nameField = new JTextField();
-        add(nameField);
+        JTextField nameField = new JTextField();
+        JTextField cityField = new JTextField();
+        JTextField emailField = new JTextField();
+        JPasswordField passwordField = new JPasswordField();
+        JButton insertButton = new JButton("Insert");
 
-        add(new JLabel("City:"));
-        cityField = new JTextField();
-        add(cityField);
+        frame.add(new JLabel("Name:")); frame.add(nameField);
+        frame.add(new JLabel("City:")); frame.add(cityField);
+        frame.add(new JLabel("Email:")); frame.add(emailField);
+        frame.add(new JLabel("Password:")); frame.add(passwordField);
+        frame.add(insertButton);
 
-        add(new JLabel("Email:"));
-        emailField = new JTextField();
-        add(emailField);
+        insertButton.addActionListener(e -> insertData(nameField, cityField, emailField, passwordField, frame));
 
-        add(new JLabel("Password:"));
-        passwordField = new JPasswordField();
-        add(passwordField);
-
-        // Insert button
-        insertButton = new JButton("Insert");
-        add(insertButton);
-
-        insertButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                insertData();
-            }
-        });
-
-        setVisible(true);
+        frame.setVisible(true);
     }
 
-    private void insertData() {
+    private void insertData(JTextField nameField, JTextField cityField, JTextField emailField,
+                            JPasswordField passwordField, JFrame frame) {
         String name = nameField.getText();
         String city = cityField.getText();
         String email = emailField.getText();
-        String password = passwordField.getText();
+        String password = new String(passwordField.getPassword());
 
-        // Insert query
         String query = "INSERT INTO users (name, city, email, password) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -67,18 +51,14 @@ public class InsertDataSwing extends JFrame {
             pstmt.setString(3, email);
             pstmt.setString(4, password);
 
-            int rowsInserted = pstmt.executeUpdate();
-            if (rowsInserted > 0) {
-                JOptionPane.showMessageDialog(this, "User inserted successfully!");
-            }
-
+            JOptionPane.showMessageDialog(frame, pstmt.executeUpdate() > 0
+                    ? "User inserted successfully!" : "Insertion failed.");
         } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error inserting user.");
+            JOptionPane.showMessageDialog(frame, "Database error: " + ex.getMessage());
         }
     }
 
     public static void main(String[] args) {
-        new InsertDataSwing();
+        SwingUtilities.invokeLater(() -> new InsertDataSwing().createGUI());
     }
 }
