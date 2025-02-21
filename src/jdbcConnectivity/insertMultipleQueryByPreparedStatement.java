@@ -1,6 +1,5 @@
 package jdbcConnectivity;
 
-import com.mysql.cj.Query;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
