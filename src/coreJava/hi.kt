@@ -1,5 +1,0 @@
-package coreJava
-
-class hi {
-
-}
