@@ -42,7 +42,9 @@ public class SelectAllRecordsSwing {
     public static String selectAllRecords() {
         String url = "jdbc:mysql://localhost:3306/college"; // Change database name
         String username = "root"; // MySQL Username
-        String password = "root"; // MySQL Password
+        String password = "root"; // MySQL Passwordja
+
+
         String driver = "com.mysql.cj.jdbc.Driver";
         StringBuilder result = new StringBuilder("ID\tName\n----------------------\n");
 
