@@ -13,7 +13,7 @@ public class CollectionSearchDemo {
         l.add("B");
         l.add("W");
         l.add("N");
-        l.add("P");
+        l.add("P4");
 
         System.out.println("before sorting = "+l);
         Collections.sort(l);
