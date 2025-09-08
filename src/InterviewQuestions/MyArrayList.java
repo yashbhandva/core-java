@@ -1,0 +1,56 @@
+package InterviewQuestions;
+
+public class MyArrayList<T> {
+
+    static final int DEFAULT_CAPACITY=16;
+    private int size=0;
+    private Object[] elements;
+
+    public MyArrayList(){
+        elements = new Object[DEFAULT_CAPACITY];
+    }
+
+    public void add(T t){
+        insureCapacity();
+        elements[size++] = t;
+    }
+
+    public void insureCapacity(){
+        if (size == elements.length){
+            Object[] newData = new Object[elements.length*2];
+            elements = newData;
+        }
+    }
+
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        sb.append("[ ");
+
+        for (int i=0;i<=size-1;i++){
+            sb.append(elements[i].toString());
+            if (i<size-1){
+                sb.append(", ");
+            }
+        }
+        sb.append(" ]");
+        return sb.toString();
+    }
+
+    public T get(int index){
+        if (index<0 || index>=size){
+            throw new IndexOutOfBoundsException();
+        }
+        return (T) elements[index+1];
+    }
+    public static void main(String[] args) {
+        MyArrayList<String> s = new MyArrayList<>();
+        s.add("a");
+        s.add("b");
+        s.add("c");
+        s.add("d");
+        s.add("e");
+
+        System.out.println(s);
+        System.out.println(s.get(0));
+    }
+}
